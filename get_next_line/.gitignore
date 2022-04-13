@@ -1,0 +1,5 @@
+*.txt
+main.c
+a.out
+./a.out
+*.gch
