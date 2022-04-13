@@ -1,0 +1,5 @@
+.DS_S*
+cmake*
+*/.idea
+*/.DS_S*
+*/cmake*

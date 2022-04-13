@@ -1,3 +1,15 @@
 [submodule "push_swap"]
 	path = push_swap
 	url = https://github.com/Zhunya-bz/push_swap.git
+[submodule "minitalk"]
+	path = minitalk
+	url = https://github.com/Zhunya-bz/minitalk.git
+[submodule "philosophers"]
+	path = philosophers
+	url = https://github.com/Zhunya-bz/Philosophers.git
+[submodule "cub3D"]
+	path = cub3D
+	url = https://github.com/Zhunya-bz/cub3D.git
+[submodule "so_long"]
+	path = so_long
+	url = https://github.com/Zhunya-bz/so_long.git
