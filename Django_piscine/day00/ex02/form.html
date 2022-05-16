@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Day01_ex02</title>
+	<style>
+		body {
+			box-sizing: border-box;
+		}
+		.container {
+			margin: 100px auto;
+			width: 50%;
+		}
+		.form__block {
+			padding: 20px;
+		}
+		input {
+			margin-left: 10px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form>
+			<div class="form__block form__firstname">
+				<span>Firstname:</span>
+				<input type="text" id="firstname">
+			</div>
+			<div class="form__block form__name">
+				<span>Name:</span>
+				<input type="text" id="name"> 
+			</div>
+			<div class="form__block form__age">
+				<span>Age:</span>
+				<input type="number" id="age"> 
+			</div>
+			<div class="form__block form__phone">
+				<span>Phone:</span>
+				<input type="tel" id="phone"> 
+			</div>
+			<div class="form__block form__email">
+				<span>Email:</span>
+				<input type="email" id="email"> 
+			</div>
+			<div class="form__block form__student">
+				<span>Student at 42?</span>
+				<input type="checkbox" id="student"> 
+			</div>
+			<div class="form__block form__gender">
+				<span>Gender:</span>
+				<input type="radio" id="gender_male" value="Male" name="gender"> <label for="gender_male">Male</label>
+				<input type="radio" id="gender_female" value="Female" name="gender">  <label for="gender_female">Female</label>
+				<input type="radio" id="gender_other" value="Other" name="gender">  <label for="gender_other">Other</label>
+			</div>
+			<button type="submit" onclick="displayFormContents()">Run that sexy JavaScript</button>
+		</form>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
