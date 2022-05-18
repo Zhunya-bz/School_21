@@ -18,7 +18,7 @@ def findCity(state):
 
 	for x in states.keys():
 		if (state.lower() and state.lower() in x.lower()):
-			print(state.lower().title() + " is the state of " + newCity[newState.get(state.lower())].title())
+			print(newCity[newState.get(state.lower())].title() + " is the capital of " + state.lower().title())
 			return (1)
 	return (0)	
 

@@ -4,6 +4,7 @@ def readNumbers():
 	numList = numString.split(",");
 	for x in numList:
 		print(x)
+	f.close()	
 
 
 
