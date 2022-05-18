@@ -1,0 +1,8 @@
+Beginning
+request_method=[POST]
+content_length=[4656]
+content_type=[multipart/form-data; boundary=----WebKitFormBoundaryy7FBAcMG61ozIUAH]
+about to allocate memory
+about to fread the file
+Got boundary
+Error - Bad Data Start 1

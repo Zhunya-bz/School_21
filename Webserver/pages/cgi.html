@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGI test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+
+    </div>
+    <div class="general">
+        <div class="general__wrap">
+            <h1 class="header-1 header-cgi">CGI test</h1>
+            <form action="cgi-bin/b.cgi" method="post" class="forms">
+                <p class="forms__text">Your info (using post method): </p>
+                <input type="text" name="info" class="forms__input">
+                <input type="submit" value="send it" class="forms__btn">
+            </form>
+            <form action="cgi-bin/env.cgi" method="get" class="forms">
+                <p class="forms__text">Print environment variables (using get method):</p>
+                <input type="submit" value="print it" class="forms__btn">
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="rights">All rights reserved</p>
+    </footer>
+</div>
+
+
+</body>
+
+</html>
