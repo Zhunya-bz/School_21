@@ -16,6 +16,13 @@ def createTable():
 			subSubList.append(li.strip().split(":"))
 		diction[item[0].strip()] = subSubList
 
+	# sorted(diction)
+	# print(diction.items())
+	# sorted_it = sorted(diction.items(), key=lambda item: item[1][0][1])
+	# # print(sorted_it)
+	# sorted_dict = {k: v for k, v in sorted_it}
+	# print(sorted_dict)  # {1: 1, 3: 4, 2: 9}
+
 
 	xmlcode = '''<!DOCTYPE html>
 		<html lang="en">
@@ -34,7 +41,7 @@ def createTable():
 			<td style="border: 1px solid black; padding:10px">
 				<h4>{key}</h4> 
 				<ul> 
-					<li>No {diction[key][0][1]}</li> 
+					<li>No {diction[key][1][1]}</li> 
 					<li>{diction[key][2][1]}</li> 
 					<li>{diction[key][3][1]}</li> 
 					<li>{diction[key][4][1]} electron</li> 
@@ -42,15 +49,13 @@ def createTable():
 			</td>
 		</tr>
 		 ''' 
-		 #'<img src="%s" alt="%s"></img>\n'%(src,alt)
 	xmlcode += ''' 
 	</table>
 	</body>
 	</html> '''	 
-	file = open(" periodic_table.html", "w")
+	file = open("periodic_table.html", "w")
 	file.write(xmlcode)
 	file.close()
-	# print(xmlcode)
 
 if __name__ == '__main__':
 	createTable()	
