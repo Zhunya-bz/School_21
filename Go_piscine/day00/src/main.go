@@ -6,6 +6,7 @@ import "os"
 import "strconv"
 import "math"
 import "sort"
+import "flag"
 
 func castToFloat(fl float64) float64 {
 	var ret float64
@@ -103,16 +104,31 @@ func sd(numbers []float64) {
 }
 
 func main() {
+	var bool_mean *bool 
+	bool_mean = flag.Bool("Mean", true, "mean value")
+	bool_median := flag.Bool("Median", true, "median number in sort array")
+	bool_mode := flag.Bool("Mode", true, "mode of frequent occurrence")
+	bool_sd := flag.Bool("SD", true, "sd - Standard Deviation")
+	flag.Parse()
+
 	var numbers []float64
 
     numbers = readInput(numbers)
+	if (len(numbers) <= 0) {
+		fmt.Printf("Error\n")
+		os.Exit(1)
+	}
     // fmt.Println(numbers)
-
-	mean(numbers, 1)
-
-	median(numbers)
-
-	mode(numbers)
-
-	sd(numbers)
+	if *bool_mean {
+		mean(numbers, 1)
+	}
+	if *bool_median {
+		median(numbers)
+	}
+	if *bool_mode {
+		mode(numbers)
+	}
+	if *bool_sd {
+		sd(numbers)
+	}
 }
