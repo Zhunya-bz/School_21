@@ -45,7 +45,7 @@ public class Program {
             }
             num = in.nextInt();
         }
-        System.out.println("Count of coffee - request - " + ++coffee);
+        System.out.println("Count of coffee - request - " + coffee);
         in.close();
     }
 }
