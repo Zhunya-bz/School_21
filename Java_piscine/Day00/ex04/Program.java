@@ -9,7 +9,7 @@ public class Program {
             if (countStrOccur[i] < 999) // количество появлений символа должно быть меньше 999
                 countStrOccur[charInitStr[i]] += 1; // добавляем единицу к числовому представлению символа (A=65)
             else {
-                System.out.println("The number of character occurrences more then 999");
+                System.err.println("The number of character occurrences more then 999");
                 System.exit(-1);
             }
         }
@@ -68,7 +68,10 @@ public class Program {
                 }
                 else
                 {
-                    x = maxOccurCount[j] * 100 / maxOccurCount[0] / 10; // считаем какая часть от 100% и / 10 - получаем количество #
+                    if (maxOccurCount[0] > 11)
+                        x = maxOccurCount[j] * 100 / maxOccurCount[0] / 10; // считаем какая часть от 100% и / 10 - получаем количество #
+                    else
+                        x = maxOccurCount[j];
                     if (lenI - i - 2 == x) // выводим число вхождениий
                         System.out.print(space + maxOccurCount[j] + " ");
                     else if (lenI - i - 2 < x)

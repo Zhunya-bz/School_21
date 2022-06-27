@@ -5,7 +5,7 @@ public class Program {
     public static void checkGrade(int grade) {
         if (grade < 1 || grade > 9)
         {
-            System.out.println("IllegalArgument");
+            System.err.println("IllegalArgument");
             System.exit(-1);
         }
     }
@@ -19,7 +19,7 @@ public class Program {
         {
             if (!week.equals("Week " + dataOrder))
             {
-                System.out.println("IllegalArgument");
+                System.err.println("IllegalArgument");
                 System.exit(-1);
             }
             int grade1 = in.nextInt();

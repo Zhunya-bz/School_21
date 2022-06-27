@@ -23,7 +23,7 @@ public class Program {
                 break;
         }
         if (num <= 1) {
-            System.out.println("IllegalArgument");
+            System.err.println("IllegalArgument");
             System.exit(-1);
         }
         if (i * i > num || num == 3)

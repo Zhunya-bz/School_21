@@ -16,7 +16,7 @@ public class Program {
                 break;
         }
         if (num <= 1) {
-            System.out.println("IllegalArgument");
+            System.err.println("IllegalArgument");
             in.close();
             System.exit(-1);
         }
