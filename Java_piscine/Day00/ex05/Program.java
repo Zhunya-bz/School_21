@@ -58,11 +58,9 @@ public class Program {
         return (count);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String [] names = new String[10];
+    public static int readNames(Scanner sc, String [] names) {
         int i = 0;
-        int countNames;
+        // читаем имена до точки
         while (sc.hasNextLine()) {
             if (i == 10)
                 error("More then 10 students!");
@@ -75,98 +73,83 @@ public class Program {
                 error("More then 10 characters of name!");
             i++;
         }
-        countNames = i;
-        i = 0;
-        int [] times = new int[10];
-        String [] dayWeek = new String[10];
+        return i;
+    }
+
+    public static int readTimeAndDayOfTheWeek(Scanner sc, int [] times, String [] dayWeek) {
+        int i = 0;
+        // читаем время и день недели до точки
         while (sc.hasNextLine()) {
             if (i == 10)
                 error("More then 10 lessons!");
             times[i] = ft_atoi(sc.next());
-            if (times[i] == -1) {
+            if (times[i] == -1)
                 break;
-            }
-//            System.out.println(times[i]);
             dayWeek[i] = sc.next();
             if (times[i] < 1 || times[i] > 6)
                 error("Your lesson not in range");
             i++;
         }
-        int countWeeks = i;
-//        System.out.println("dayWeek " + Arrays.toString(dayWeek));
+        return i;
+    }
 
-        String [] ar = {"TE", "WE", "TH", "FR", "SA", "SU", "MO"};
-        String [] daysWeekSept = new String [30];
-        for (int j = 0; j < 30; j++) {
-            daysWeekSept[j] = ar[j % 7];
-        }
-        int count = countHowMuchDays(dayWeek, daysWeekSept, countWeeks);
-//        System.out.println(count);
-//        System.out.println(Arrays.toString(daysWeekSept));
-        int [] day = new int[count]; // !!!!!!!!!
-        int m = 0;
-        for (int j = 0; j < 30; j++) {
-            for (int k = 0; k < countWeeks; k++) {
-                if (daysWeekSept[j].equals(dayWeek[k])) {
-                    day[m++] = j + 1;
-                }
-            }
-        }
-        System.out.println(Arrays.toString(day));
-//        System.out.println(Arrays.toString(names));
-//        System.out.println(Arrays.toString(times));
-
-
-        int [][] isVisit = new int[countNames][count];
-        for (int j = 0; j < countNames; j++) {
-            for (int k = 0; k < count; k++) {
-                isVisit[j][k] = 0;
-            }
-        }
-        int [] visitTimes = new int[countWeeks];
+    public static void readVisitedLesson(Scanner sc, int [] visitTimes, int countNames, int [] day, int countDay, int [][] isVisit, String [] names, int [] dayTime) {
         int p = 0;
+        // считываем посещения учеников до точки
         while (sc.hasNextLine()) {
             String visitName = sc.next();
             if (visitName.equals("."))
                 break;
-//            int visitTime = ft_atoi(sc.next());
             visitTimes[p] = ft_atoi(sc.next());
             int visitDate = ft_atoi(sc.next());
             String status = sc.next();
 
+            //  проверяем совпала ли дата посещения и время посещения
             for (int j = 0; j < countNames; j++) {
                 if (names[j].equals(visitName)) {
-                    for (int k = 0; k < m; k++) {
-                        for (int h = 0; h < countWeeks; h++) {
-                            if (day[k] == visitDate && times[h] == visitTimes[p]) {
-                                if (status.equals("HERE"))
-                                    isVisit[j][k] = 1;
-                                else
-                                    isVisit[j][k] = -1;
-                            }
+                    for (int k = 0; k < countDay; k++) {
+                        if (day[k] == visitDate && dayTime[k] == visitTimes[p]) {
+                            if (status.equals("HERE"))
+                                isVisit[j][k] = 1;
+                            else
+                                isVisit[j][k] = -1;
+                            break;
                         }
                     }
                 }
             }
             p++;
-//            System.out.println(Arrays.deepToString(isVisit));
 //            checks(visitName, names, visitTime, times);
         }
+    }
 
-
+    public static void printTable(int countNames, int countWeeks, int count, String [] names, String [] dayWeek, int [] day, int [] times, int [][] isVisit, String [] ar) {
+        // логика вывода таблички
         for (int j = 0; j < countNames + 1; j++) {
+            String [] dayWeekCopy = new String[countWeeks]; // создаем копию массива
             for (int k = 0; k < count + 1; k++) {
+                int q = 0;
+                for (; q < countWeeks; q++) {
+                    if (dayWeekCopy[q] != null) {
+                        break;
+                    }
+                }
+                if  (q == countWeeks) { // если весь массив равен null то создаем копию
+                    for (int s = 0; s < countWeeks; s++) {
+                        dayWeekCopy[s] = dayWeek[s];
+                    }
+                }
                 if (j == 0) {
                     if (k == 0) {
                         System.out.printf("%10s", " ");
                         continue;
                     }
-
+                    // здесь выкидываем элементы, которые уже нашли и идем дальше по циклу K
                     for (int r = 0; r < countWeeks; r++) {
-                        for (int w = 0; w < p; w++) {
-                            if (dayWeek[r].equals(ar[(day[k - 1] - 1) % 7]) && times[r] == visitTimes[w]) {
-                                System.out.printf("%1d:00%3s%3d|", times[r], dayWeek[r], day[k - 1]);
-                            }
+                        if (dayWeekCopy[r] != null && dayWeekCopy[r].equals(ar[(day[k - 1] - 1) % 7])) {
+                            System.out.printf("%1d:00%3s%3d|", times[r], dayWeek[r], day[k - 1]);
+                            dayWeekCopy[r] = null;
+                            break;
                         }
                     }
                 }
@@ -181,7 +164,57 @@ public class Program {
             }
             System.out.println();
         }
+    }
 
+    public static int fillArrays(int countWeeks, int [] day, int [] dayTime, int [] times, String [] dayWeek, String [] daysWeekSept) {
+        int countDay = 0;
+        for (int j = 0; j < 30; j++) {
+            for (int k = 0; k < countWeeks; k++) {
+                if (daysWeekSept[j].equals(dayWeek[k])) {
+                    day[countDay] = j + 1;
+                    dayTime[countDay++] = times[k];
+                }
+            }
+        }
+        return countDay;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String [] names = new String[10];
+
+        int countNames = readNames(sc, names);
+
+        int [] times = new int[10];
+        String [] dayWeek = new String[10];
+
+        int countWeeks = readTimeAndDayOfTheWeek(sc, times, dayWeek);
+
+        // создаем массив дней недели 2020 года Сентябрь
+        String [] ar = {"TE", "WE", "TH", "FR", "SA", "SU", "MO"};
+        String [] daysWeekSept = new String [30];
+        for (int j = 0; j < 30; j++) {
+            daysWeekSept[j] = ar[j % 7];
+        }
+        // считаем количество дней, подходящих под наши введенные (с клавиатуры) дни недели (нужно для массива)
+        int count = countHowMuchDays(dayWeek, daysWeekSept, countWeeks);
+
+        int [] dayTime = new int[count]; // создаем массив для последовательного заполнения времени по дню недели
+        int [] day = new int[count]; // создаем массив чисел дней недели
+
+        int countDay = fillArrays(countWeeks, day, dayTime, times, dayWeek, daysWeekSept);
+
+        int [][] isVisit = new int[countNames][count]; // создаем двумерный массив для посещения учеников
+        for (int j = 0; j < countNames; j++) {
+            for (int k = 0; k < count; k++) {
+                isVisit[j][k] = 0;
+            }
+        }
+        int [] visitTimes = new int[count];
+
+        readVisitedLesson(sc, visitTimes, countNames, day, countDay, isVisit, names, dayTime);
+
+        printTable(countNames, countWeeks, count, names, dayWeek, day, times, isVisit, ar);
 
     }
 }
