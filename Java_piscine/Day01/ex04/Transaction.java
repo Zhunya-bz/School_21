@@ -13,8 +13,8 @@ public class Transaction {
     private Integer TransferAmount;
     private boolean success;
 
-    public Transaction(User Resipient, User Sender, Integer TransferAmount)
-    {
+    public Transaction(User Resipient, User Sender, Integer TransferAmount) // amount - может быть как > 0 так и < 0,
+    {                                                                       // потом далее переводим только в положительные
         Identifier = UUID.randomUUID();
         this.Resipient = Resipient;
         this.Sender = Sender;
@@ -29,18 +29,20 @@ public class Transaction {
             success = false;
         if (Sender.getBalance() - this.TransferAmount < 0 && this.TransferCategory == Category.DEBIT)
             success = false;
-        if (success == true)
-        {
-            if (TransferCategory == Category.CREDIT) {
-                Resipient.setBalance(Resipient.getBalance() - this.TransferAmount);
-                Sender.setBalance(Sender.getBalance() + this.TransferAmount);
-            } else {
-                Resipient.setBalance(Resipient.getBalance() + this.TransferAmount);
-                Sender.setBalance(Sender.getBalance() - this.TransferAmount);
-            }
-        }
-
     }
+
+    public Transaction(Transaction transaction) {
+        this.Identifier = transaction.getIdentifier();
+        this.Resipient = transaction.getResipient();
+        this.Sender = transaction.getSender();
+        if (transaction.getTransferCategory() == Category.CREDIT)
+            this.TransferCategory = Category.DEBIT;
+        else
+            this.TransferCategory = Category.CREDIT;
+        this.TransferAmount = transaction.getTransferAmount();
+        this.success = true;
+    }
+
     public void setResipient(User Resipient) {
         this.Resipient = Resipient;
     }

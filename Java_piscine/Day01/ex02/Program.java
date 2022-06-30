@@ -20,21 +20,20 @@ public class Program {
         Data.addUser(Val);
         Data.addUser(As);
 
-        Data.addUser(Zhun); // 11
+//        Data.addUser(Zhun); // 11
 
         try {
             // System.out.println(Data.getUserId(2));
 //             System.out.println(Data.getUserId(12));
             // System.out.println(Data.getUserIndex(9));
             System.out.println(Data.getUserIndex(11));
-
+            System.out.println();
+            System.out.println(Data);
         }
         catch (UserNotFoundException ex) {
-            ex.message();
+            ex.printStackTrace();
+//            ex.getMessage();
         }
-
-
-        System.out.println(Data);
 
     }
 }

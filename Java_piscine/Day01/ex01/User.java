@@ -29,9 +29,6 @@ public class User {
     public Integer getBalance() {
         return (this.Balance);
     }
-//    public void printUser() {
-//        System.out.println(this.Identifier + " " + this.Name + " " + this.Balance);
-//    }
 
     @java.lang.Override
     public java.lang.String toString() {

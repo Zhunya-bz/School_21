@@ -1,4 +1,3 @@
-// singleton
 public class UserIdsGenerator {
     private static UserIdsGenerator instance;
     private static int Id = 0;
@@ -7,7 +6,7 @@ public class UserIdsGenerator {
 
     public static UserIdsGenerator getInstance() {
         if (instance == null) {        //если объект еще не создан
-            instance = new UserIdsGenerator();    //создать новый объект один раз в начале
+            instance = new UserIdsGenerator();    //создать новый объект
         }
         return instance;
     }

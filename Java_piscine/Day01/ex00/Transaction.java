@@ -70,12 +70,6 @@ public class Transaction {
         return (this.TransferAmount);
     }
 
-//  public void printTransaction() {
-//      System.out.println("ID: " + this.Identifier +
-//          " Resipient: " + this.Resipient.getName() + "Value: " + this.Resipient.getBalance() + " Sender: " + this.Sender.getName() + "Value: " + this.Sender.getBalance()
-//          + " Category: " + this.TransferCategory + " Amount: " + this.TransferAmount);
-//  }
-
     @java.lang.Override
     public java.lang.String toString() {
         return "Transaction{" +

@@ -1,13 +1,16 @@
+import java.util.UUID;
+
 public class User {
-    private static Integer IdValue = 0;
     private Integer Identifier;
     private String Name;
     private Integer Balance;
+    private TransactionsList transactions;
 
     public User(String name, Integer balance) {
         Name = name;
         Balance = balance;
-        Identifier = ++IdValue;
+        Identifier = UserIdsGenerator.getInstance().generateId();
+        transactions = new TransactionsLinkedList();
     }
     public void setName(String name) {
         this.Name = name;
@@ -31,6 +34,25 @@ public class User {
         return (this.Balance);
     }
 
+    public void removeTransaction(UUID id) throws UserNotFoundException {
+        this.transactions.removeTransactionId(id);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.addTransaction(transaction);
+    }
+    public Transaction [] transactionToArray() {
+         return this.transactions.toArray();
+    }
+
+    public boolean isTransactionInList(UUID uuid) {
+        Transaction[] array = transactions.toArray();
+        for (Transaction t : array) {
+            if (t.getIdentifier().equals(uuid))
+                return true;
+        }
+        return false;
+    }
 
     @java.lang.Override
     public java.lang.String toString() {

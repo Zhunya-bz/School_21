@@ -39,7 +39,7 @@ public class TransactionsLinkedList implements TransactionsList {
                 size--;
                 return;
             }
-            if (tmp.getData().getIdentifier() == id)
+            if (tmp.getData().getIdentifier().equals(id))
             {
                 tmp = tmp.next;
                 tmp.prev = null;
@@ -47,7 +47,7 @@ public class TransactionsLinkedList implements TransactionsList {
                 size--;
                 return;
             }
-            if (tmp.next.getData().getIdentifier() == id)
+            if (tmp.next.getData().getIdentifier().equals(id))
             {
                 tmp.next = tmp.next.next;
                 if (tmp.next == null) {
