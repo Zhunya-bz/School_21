@@ -15,5 +15,7 @@ public class Program {
         else if (args[0].equals("--profile=production")) {
             menu.launch(true);
         }
+        else
+            System.out.println("Wrong arguments!");
     }
 }

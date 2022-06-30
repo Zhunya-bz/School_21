@@ -49,7 +49,6 @@ public class Signature {
         int c = 0;
         int flag = 0;
         String result = "";
-        System.out.println(file);
 
         while ((i = file.read()) != -1) // читаем в буффер
         {
@@ -58,6 +57,7 @@ public class Signature {
             result += Integer.toHexString(i);
             c++;
         }
+//        System.out.println(result);
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (result.toLowerCase().startsWith(entry.getValue().toLowerCase()))
             {
