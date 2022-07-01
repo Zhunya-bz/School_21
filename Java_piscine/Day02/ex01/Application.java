@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Application {
@@ -9,6 +6,7 @@ public class Application {
     private  List<String> list2;
     private List<Integer> vectorA;
     private List<Integer> vectorB;
+    private TreeSet<String> treeSet;
     private  int size;
 
 
@@ -51,7 +49,15 @@ public class Application {
             sum2 += Math.pow(vectorB.get(i), 2);
         }
         double res = numerator / (Math.sqrt(sum) * Math.sqrt(sum2));
-        return Math.round(res * 100) / 100.0;
+        return Math.round((int)(res * 100)) / 100.0;
+    }
+
+    public void createDict() throws IOException {
+        FileWriter fw = new FileWriter("dictionary.txt", false);
+        for (String str: treeSet) {
+            fw.write(str + " ");
+        }
+        fw.close();
     }
 
     public void readFromFiles(String [] args) throws IOException {
@@ -64,7 +70,7 @@ public class Application {
         reader1.close();
         reader2.close();
 
-        TreeSet<String> treeSet = new TreeSet<>(list1);
+        treeSet = new TreeSet<>(list1);
         treeSet.addAll(list2);
         size = treeSet.size();
 

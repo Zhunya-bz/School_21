@@ -7,6 +7,7 @@ public class Program {
             Application app = new Application();
             app.readFromFiles(args);
             System.out.format("%.2f", app.similarity());
+            app.createDict();
         }
         else
             System.out.println("Wrong arguments!");
