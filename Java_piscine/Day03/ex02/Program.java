@@ -29,26 +29,33 @@ public class Program {
                     summa += array[i];
                     sumThread += summa;
                 }
-                System.out.println("Thread " + count + ": from " + iStart + " to " + i + " sum is " + summa);
+                System.out.println("Thread " + count + ": from " + iStart + " to " + (i - 1) + " sum is " + summa);
             }
         }
     }
 
+    private static void error() {
+        System.out.println("Invalid arguments");
+        System.exit(-1);
+    }
+
     public static void main(String[] args) throws InterruptedException {
 
-        if (args.length != 2) {
-            System.out.println("Invalid arguments");
-            System.exit(0);
-        }
+        if (args.length != 2)
+            error();
 
         if (args[0].startsWith("--arraySize="))
             size = Integer.parseInt(args[0].substring(args[0].indexOf('=') + 1));
+        else
+            error();
         if (args[1].startsWith("--threadsCount="))
             thredCount = Integer.parseInt(args[1].substring(args[1].indexOf('=') + 1));
+        else
+            error();
 
-        if (size > 2000000 || thredCount > 2000000) {
-            System.out.println("Too much size");
-            System.exit(0);
+        if (size > 2000000 || thredCount > 2000000 || size < 0 || thredCount < 0) {
+            System.out.println("Wrong thread size or thread count");
+            System.exit(-1);
         }
 
         Integer [] array = new Integer[size];
@@ -58,7 +65,7 @@ public class Program {
         int sum = 0;
 
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(1000);
+            array[i] = rand.nextInt(10);
             sum += array[i];
         }
         System.out.println("Sum: " + sum);

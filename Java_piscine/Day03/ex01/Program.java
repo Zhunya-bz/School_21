@@ -8,19 +8,19 @@ public class Program {
         private String str;
         public void produce() throws InterruptedException {
                 synchronized (this) {
-                    if (flag == 0)
+                    if (flag == 1)
                         wait();
                     System.out.println("Egg");
-                    flag = 0;
+                    flag = 1;
                     notify();
                 }
         }
         public void consume() throws InterruptedException {
                 synchronized (this) {
-                    if (flag == 1)
+                    if (flag == 0)
                         wait();
                     System.out.println("Hen");
-                    flag = 1;
+                    flag = 0;
                     notify();
                 }
         }
@@ -28,7 +28,7 @@ public class Program {
 
     public static void main(String[] args) {
 
-        if (args.length == 0) {
+        if (args.length != 1) {
             System.out.println("Invalid arguments");
             System.exit(0);
         }
