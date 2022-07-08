@@ -35,8 +35,13 @@ public class Logic {
                     cpWhite.print(" ");
                 }
             }
-            System.out.println();
-//            cpBlack.clear();
+//            cpBlack.setBackgroundColor(Ansi.BColor.NONE);
+//            cpWhite.setBackgroundColor(Ansi.BColor.NONE);
+            cpWhite.clear();
+            cpWhite.print("\n");
+//            cpWhite.setBackgroundColor(Ansi.BColor.valueOf(white));
+            cpWhite.setBackgroundColor(Ansi.BColor.valueOf(white));
+//            System.out.println();
 //            cpWhite.clear();
         }
     }
