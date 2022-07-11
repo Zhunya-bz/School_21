@@ -23,31 +23,32 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
 
         Connection connection = ds.getConnection();
 
-        PreparedStatement statementUser = connection.prepareStatement("SELECT * FROM chat.users WHERE id=?");
-        statementUser.setLong(1, id);
-        ResultSet resultSet2 = statementUser.executeQuery();
-        resultSet2.next();
-        User user = new User(resultSet2.getLong("id"), resultSet2.getString("login"), resultSet2.getString("password"), null, null );
-        resultSet2.close();
-
-        PreparedStatement statementChat = connection.prepareStatement("SELECT * FROM chat.room WHERE owner_room=?");
-        statementChat.setLong(1, id);
-        ResultSet resultSet3 = statementChat.executeQuery();
-        resultSet3.next();
-        Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), null, null);
-        resultSet3.close();
-
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM chat.messages WHERE author=?");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM chat.messages WHERE id=?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
         resultSet.next();
+
+        PreparedStatement statementUser = connection.prepareStatement("SELECT * FROM chat.users WHERE id=?");
+        statementUser.setLong(1, resultSet.getLong("author"));
+        ResultSet resultSet2 = statementUser.executeQuery();
+        resultSet2.next();
+        User user = new User(resultSet2.getLong("id"), resultSet2.getString("login"), resultSet2.getString("password"), null, null);
+        statementUser.close();
+
+        PreparedStatement statementChat = connection.prepareStatement("SELECT * FROM chat.room WHERE id=?");
+        statementChat.setLong(1, resultSet.getLong("room_id"));
+        ResultSet resultSet3 = statementChat.executeQuery();
+        resultSet3.next();
+        Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), null, null);
+        statementChat.close();
+
 
 //        User user = new User(1L, "saltmer", "123456", null, null);
 //        Chatroom chatroom = new Chatroom(1L, "chat1", null, null);
 
         Message message = new Message(resultSet.getLong("id"), user, chatroom, resultSet.getString("message"),
                 resultSet.getTimestamp("times").toLocalDateTime());
-        resultSet.close();
+        statement.close();
         connection.close();
         return Optional.of(message);
     }

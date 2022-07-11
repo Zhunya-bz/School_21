@@ -40,10 +40,6 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), null, null);
         statementChat.close();
 
-
-//        User user = new User(1L, "saltmer", "123456", null, null);
-//        Chatroom chatroom = new Chatroom(1L, "chat1", null, null);
-
         Message message = new Message(resultSet.getLong("id"), user, chatroom, resultSet.getString("message"),
                 resultSet.getTimestamp("times").toLocalDateTime());
         statement.close();
@@ -60,11 +56,33 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
             statement.setLong(1, message.getRoom().getIdRoom());
             statement.setLong(2, message.getAuthor().getId());
             statement.setString(3, message.getText());
-            statement.setTimestamp(4, Timestamp.valueOf(message.getTime()));
+            statement.setTimestamp(4, Timestamp.valueOf(message.getDateTime()));
             statement.execute();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             message.setId(resultSet.getLong("id"));
+        } catch (SQLException e) {
+            throw new NotSavedSubEntityException();
+        }
+    }
+
+    @Override
+    public void update(Message message) {
+        String sql = "UPDATE chat.messages" +
+                " SET room_id = ?, author = ?, message = ?, times = ? " +
+                "WHERE id = ?;";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setLong(1, message.getRoom().getIdRoom());
+            statement.setLong(2, message.getAuthor().getId());
+            statement.setString(3, message.getText());
+            if (message.getDateTime() == null)
+                statement.setTimestamp(4, null);
+            else
+                statement.setTimestamp(4, Timestamp.valueOf(message.getDateTime()));
+            statement.setLong(5, message.getId());
+            statement.execute();
         } catch (SQLException e) {
             throw new NotSavedSubEntityException();
         }
