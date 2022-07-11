@@ -13,16 +13,17 @@ public class Program {
     public static void main(String[] args) throws SQLException {
 
         HikariDataSource ds = new HikariDataSource();
-        ds.setJdbcUrl("jdbс:postgresql://localhost:5433/postgres");
+        ds.setJdbcUrl("jdbc:postgresql://localhost:5433/postgres");
         ds.setUsername("saltmer");
-        ds.setPassword("");
-
+        ds.setPassword("123");
 
         MessagesRepository mr = new MessagesRepositoryJdbcImpl(ds);
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter a message ID:\n-> ");
         long id = sc.nextLong();
-        System.out.println(mr.findById(id));
+        Optional<Message> result = mr.findById(id);
+        if (result.isPresent())
+            System.out.println(result);
     }
 }

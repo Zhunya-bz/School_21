@@ -60,12 +60,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return  "{id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", listRoom=" + listRoom +
-                ", listRoomUserVisited=" + listRoomUserVisited +
+                ", createdRooms=" + listRoom +
+                ", rooms=" + listRoomUserVisited +
                 '}';
     }
 

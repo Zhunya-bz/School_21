@@ -19,5 +19,5 @@ CREATE TABLE IF NOT EXISTS chat.messages (
     room_id     INT NOT NULL REFERENCES chat.room(id),
     author      INT NOT NULL REFERENCES chat.users(id),
     message     VARCHAR(100) NOT NULL ,
-    time        TIMESTAMP NOT NULL DEFAULT NOW()
+    times        TIMESTAMP NOT NULL DEFAULT NOW()
 );
