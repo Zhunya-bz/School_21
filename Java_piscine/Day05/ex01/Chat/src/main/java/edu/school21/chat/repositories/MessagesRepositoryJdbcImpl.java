@@ -28,12 +28,14 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         ResultSet resultSet2 = statementUser.executeQuery();
         resultSet2.next();
         User user = new User(resultSet2.getLong("id"), resultSet2.getString("login"), resultSet2.getString("password"), null, null );
+        resultSet2.close();
 
         PreparedStatement statementChat = connection.prepareStatement("SELECT * FROM chat.room WHERE owner_room=?");
         statementChat.setLong(1, id);
         ResultSet resultSet3 = statementChat.executeQuery();
         resultSet3.next();
         Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), null, null);
+        resultSet3.close();
 
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM chat.messages WHERE author=?");
         statement.setLong(1, id);
@@ -45,6 +47,8 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
 
         Message message = new Message(resultSet.getLong("id"), user, chatroom, resultSet.getString("message"),
                 resultSet.getTimestamp("times").toLocalDateTime());
+        resultSet.close();
+        connection.close();
         return Optional.of(message);
     }
 }
