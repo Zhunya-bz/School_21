@@ -33,12 +33,15 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         statementChat.setLong(1, id);
         ResultSet resultSet3 = statementChat.executeQuery();
         resultSet3.next();
-        Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), user, null);
+        Chatroom chatroom = new Chatroom(resultSet3.getLong("id"), resultSet3.getString("name_room"), null, null);
 
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM chat.messages WHERE author=?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
         resultSet.next();
+
+//        User user = new User(1L, "saltmer", "123456", null, null);
+//        Chatroom chatroom = new Chatroom(1L, "chat1", null, null);
 
         Message message = new Message(resultSet.getLong("id"), user, chatroom, resultSet.getString("message"),
                 resultSet.getTimestamp("times").toLocalDateTime());
