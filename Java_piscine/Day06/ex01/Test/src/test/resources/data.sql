@@ -1,1 +1,0 @@
-INSERT INTO product (name, price) VALUES ('Lenovo laptop', 45800);

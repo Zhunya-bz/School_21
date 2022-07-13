@@ -13,6 +13,7 @@ public class EmbeddedDataSourceTest {
 
     @BeforeEach
     void init() {
+        // Построитель, предоставляющий удобный API для построения встроенной базы данных.
         dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL)
                 .addScript("schema.sql")
                 .addScript("data.sql")
