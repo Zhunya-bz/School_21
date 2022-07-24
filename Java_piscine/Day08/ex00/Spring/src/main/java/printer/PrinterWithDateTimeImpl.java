@@ -1,3 +1,7 @@
+package printer;
+
+import render.Renderer;
+
 import java.time.LocalDateTime;
 
 public class PrinterWithDateTimeImpl implements Printer{

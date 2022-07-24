@@ -1,3 +1,7 @@
+package render;
+
+import processor.PreProcessor;
+
 public class RendererErrImpl implements Renderer {
 
     private PreProcessor preProcessor;

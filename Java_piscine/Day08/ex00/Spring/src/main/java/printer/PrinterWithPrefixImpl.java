@@ -1,3 +1,7 @@
+package printer;
+
+import render.Renderer;
+
 public class PrinterWithPrefixImpl implements Printer{
     private String prefix;
     private Renderer renderer;

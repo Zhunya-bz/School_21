@@ -1,11 +1,14 @@
+package app;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import printer.Printer;
 
 public class Main {
     public static void main(String[] args) {
-//        PreProcessor preProcessor = new PreProcessorToUpperImpl();
-//        Renderer renderer = new RendererErrImpl(preProcessor);
-//        PrinterWithDateTimeImpl printer = new PrinterWithDateTimeImpl(renderer);
+//        processor.PreProcessor preProcessor = new processor.PreProcessorToUpperImpl();
+//        render.Renderer renderer = new render.RendererErrImpl(preProcessor);
+//        printer.PrinterWithDateTimeImpl printer = new printer.PrinterWithDateTimeImpl(renderer);
 ////        printer.setPrefix("HI");
 //        printer.print("Zhunya");
 

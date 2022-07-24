@@ -5,51 +5,51 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-    <bean id="preProcessorToLower" class="PreProcessorToLowerImpl"/>
-    <bean id="preProcessorToUpper" class="PreProcessorToUpperImpl"/>
+    <bean id="preProcessorToLower" class="processor.PreProcessorToLowerImpl"/>
+    <bean id="preProcessorToUpper" class="processor.PreProcessorToUpperImpl"/>
 
-    <bean id="rendererErrLower" class="RendererErrImpl" >
+    <bean id="rendererErrLower" class="render.RendererErrImpl" >
         <constructor-arg ref="preProcessorToLower"/>
     </bean>
-    <bean id="rendererErrUpper" class="RendererErrImpl" >
+    <bean id="rendererErrUpper" class="render.RendererErrImpl" >
         <constructor-arg ref="preProcessorToUpper"/>
     </bean>
-    <bean id="rendererStandardLower" class="RendererStandardImpl">
+    <bean id="rendererStandardLower" class="render.RendererStandardImpl">
         <constructor-arg ref="preProcessorToLower"/>
     </bean>
-    <bean id="rendererStandardUpper" class="RendererStandardImpl">
+    <bean id="rendererStandardUpper" class="render.RendererStandardImpl">
         <constructor-arg ref="preProcessorToUpper"/>
     </bean>
 
-    <bean id="prefixStandardLower" class="PrinterWithPrefixImpl">
+    <bean id="prefixStandardLower" class="printer.PrinterWithPrefixImpl">
         <constructor-arg ref="rendererStandardLower"/>
         <property name="prefix" value="zhunya"/>
     </bean>
-    <bean id="prefixStandardUpper" class="PrinterWithPrefixImpl">
+    <bean id="prefixStandardUpper" class="printer.PrinterWithPrefixImpl">
         <constructor-arg ref="rendererStandardUpper"/>
         <property name="prefix" value="zhunya"/>
     </bean>
-    <bean id="prefixErrLower" class="PrinterWithPrefixImpl">
+    <bean id="prefixErrLower" class="printer.PrinterWithPrefixImpl">
         <constructor-arg ref="rendererErrLower"/>
         <property name="prefix" value="zhunya"/>
 
     </bean>
-    <bean id="prefixErrUpper" class="PrinterWithPrefixImpl">
+    <bean id="prefixErrUpper" class="printer.PrinterWithPrefixImpl">
         <constructor-arg ref="rendererErrUpper"/>
         <property name="prefix" value="zhunya"/>
 
     </bean>
 
-    <bean id="dateStandardLower" class="PrinterWithDateTimeImpl">
+    <bean id="dateStandardLower" class="printer.PrinterWithDateTimeImpl">
         <constructor-arg ref="rendererStandardLower"/>
     </bean>
-    <bean id="dateStandardUpper" class="PrinterWithDateTimeImpl">
+    <bean id="dateStandardUpper" class="printer.PrinterWithDateTimeImpl">
         <constructor-arg ref="rendererStandardUpper"/>
     </bean>
-    <bean id="dateErrLower" class="PrinterWithDateTimeImpl">
+    <bean id="dateErrLower" class="printer.PrinterWithDateTimeImpl">
         <constructor-arg ref="rendererErrLower"/>
     </bean>
-    <bean id="dateErrUpper" class="PrinterWithDateTimeImpl">
+    <bean id="dateErrUpper" class="printer.PrinterWithDateTimeImpl">
         <constructor-arg ref="rendererErrUpper"/>
     </bean>
 </beans>
