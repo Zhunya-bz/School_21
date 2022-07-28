@@ -20,12 +20,12 @@ import java.util.Optional;
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
     @Autowired
-//    @Qualifier("UsersRepositoryJdbcTemplateImpl")
-    private final JdbcTemplate jdbcTemplate;
+    @Qualifier("jdbcTemplateSource")
+    private JdbcTemplate jdbcTemplate;
 
-    public UsersRepositoryJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public UsersRepositoryJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     @Override
     public User findById(Long id) {
@@ -56,13 +56,13 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         User user = jdbcTemplate.query("SELECT * FROM db.users WHERE email=?", new myRowMapper(), email).stream().findAny().orElse(null);
-        return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 }
 
 class myRowMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new User(rs.getLong("id"), rs.getString("email"));
+        return new User(rs.getString("email"));
     }
 }

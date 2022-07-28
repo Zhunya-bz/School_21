@@ -11,16 +11,15 @@ import java.util.UUID;
 @Component
 public class UsersServiceImpl implements UsersService {
     @Autowired
-    @Qualifier("UsersRepositoryJdbcImpl")
+    @Qualifier("usersRepositoryJdbcTemplateImpl")
     private UsersRepository usersRepository;
 
 
     @Override
     public String signUp(String email) {
-        if (usersRepository.findByEmail(email).isPresent()) {
-            User user = usersRepository.findByEmail(email).get();
+        if (!usersRepository.findByEmail(email).isPresent()) {
             String password = UUID.randomUUID().toString().substring(0, 8);
-//            user.set????
+            User user = new User(email, password);
             usersRepository.save(user);
             return password;
         }

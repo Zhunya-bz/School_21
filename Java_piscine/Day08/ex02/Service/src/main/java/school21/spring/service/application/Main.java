@@ -7,23 +7,15 @@ import school21.spring.service.config.ApplicationConfig;
 import school21.spring.service.model.User;
 import school21.spring.service.repositories.UsersRepository;
 import school21.spring.service.repositories.UsersRepositoryJdbcImpl;
+import school21.spring.service.services.UsersService;
+import school21.spring.service.services.UsersServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        UsersRepository usersRepository = context.getBean(UsersRepositoryJdbcImpl.class);
-        System.out.println("------------------");
-        System.out.println(usersRepository.findAll());
 
-//        ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
-//        UsersRepository usersRepository = context.getBean("usersRepositoryJdbc", UsersRepository.class);
-//        System.out.println("------------------");
-//        System.out.println(usersRepository.findAll());
-////        usersRepository = context.getBean("usersRepositoryJdbcHikari", UsersRepository.class);
-////        System.out.println("------------------");
-////        System.out.println(usersRepository.findAll());
-//        usersRepository = context.getBean("usersRepositoryJdbcTemplate", UsersRepository.class);
-//        System.out.println("------------------");
-//        System.out.println(usersRepository.findAll());
+        UsersService usersService = context.getBean(UsersServiceImpl.class);
+
+        System.out.println(usersService.signUp("zhunya.bz@yandez.ru"));
     }
 }

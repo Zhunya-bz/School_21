@@ -15,13 +15,13 @@ import java.util.Optional;
 @Component
 public class UsersRepositoryJdbcImpl implements UsersRepository{
     @Autowired
-//    @Qualifier("UsersRepositoryJdbcImpl")
-    private final DataSource ds;
+    @Qualifier("dataSource")
+    private DataSource ds;
 
 
-    public UsersRepositoryJdbcImpl(DataSource dataSource) {
-        this.ds = dataSource;
-    }
+//    public UsersRepositoryJdbcImpl(DataSource dataSource) {
+//        this.ds = dataSource;
+//    }
 
     @Override
     public User findById(Long id) {
@@ -32,7 +32,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository{
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            user = new User(resultSet.getLong("id"), resultSet.getString("email"));
+            user = new User(resultSet.getString("email"));
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -49,8 +49,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository{
              PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User user = new User(resultSet.getLong("id"),
-                        resultSet.getString("email"));
+                User user = new User(resultSet.getString("email"));
                 list.add(user);
             }
         } catch (SQLException e) {
@@ -112,7 +111,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository{
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            user = new User(resultSet.getLong("id"), resultSet.getString("email"));
+            user = new User(resultSet.getString("email"));
         }
         catch (SQLException ex) {
             ex.printStackTrace();
