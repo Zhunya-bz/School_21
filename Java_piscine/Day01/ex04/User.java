@@ -45,6 +45,15 @@ public class User {
          return this.transactions.toArray();
     }
 
+    public boolean isTransactionInList(UUID uuid) {
+        Transaction[] array = transactions.toArray();
+        for (Transaction t : array) {
+            if (t.getIdentifier().equals(uuid))
+                return true;
+        }
+        return false;
+    }
+
     @java.lang.Override
     public java.lang.String toString() {
         return "User{" +

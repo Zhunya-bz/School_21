@@ -19,10 +19,10 @@ public class Program {
         ds.setUsername("saltmer");
         ds.setPassword("123");
 
-        User creator = new User(7L, "user", "user", new ArrayList(), new ArrayList());
+        User creator = new User(6L, "login", "login", new ArrayList(), new ArrayList());
         User author = creator;
-        Chatroom room = new Chatroom(8L, "room", creator, new ArrayList());
-        Message message = new Message(null, author, room, "Hello2!", LocalDateTime.now());
+        Chatroom room = new Chatroom(1L, "room", creator, new ArrayList());
+        Message message = new Message(7L, author, room, "Hello2!", LocalDateTime.now());
         MessagesRepository messagesRepository = new MessagesRepositoryJdbcImpl(ds);
         messagesRepository.save(message);
         System.out.println(message.getId()); // ex. id == 8

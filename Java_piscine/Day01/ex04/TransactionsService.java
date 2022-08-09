@@ -17,13 +17,17 @@ public class TransactionsService {
         return userList.getUserId(id).getBalance();
     }
 
+    public User getUserById(Integer id) throws UserNotFoundException {
+        return userList.getUserId(id);
+    }
+
     public void transferTransactions(Integer id1, Integer id2, Integer amount) throws UserNotFoundException, IllegalTransactionException{
         if (id1 == id2 || amount < 0)
             throw new IllegalTransactionException("Illegal transactions!");
 
-        User sender = userList.getUserId(id2);
-        User resipient = userList.getUserId(id1);
-        Transaction one = new Transaction(sender, resipient, amount);
+        User sender = userList.getUserId(id1);
+        User resipient = userList.getUserId(id2);
+        Transaction one = new Transaction(resipient, sender, amount);
         Transaction two = new Transaction(one);
         transactionsList.addTransaction(one);
 //        transactionsList.addTransaction(two);
@@ -45,7 +49,16 @@ public class TransactionsService {
     }
 
     public Transaction [] unpairedTransactions() {
-        return transactionsList.toArray();
+        Transaction[] arrayT = transactionsList.toArray();
+        TransactionsLinkedList result = new TransactionsLinkedList();
+        for (Transaction t : arrayT) {
+            User u1 = t.getResipient();
+            User u2 = t.getSender();
+            if (!u1.isTransactionInList(t.getIdentifier()) || !u2.isTransactionInList(t.getIdentifier()))
+                result.addTransaction(t); // проверяем нет ли в получателе транзакции (отправителе), если нет то добавляем в unpaired
+        }
+        return result.toArray();
+//        return transactionsList.toArray();
     }
 
 
